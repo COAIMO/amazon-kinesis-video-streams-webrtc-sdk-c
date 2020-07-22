@@ -72,7 +72,8 @@ CleanUp:
     return retStatus;
 }
 
-STATUS getRtpRemoteInboundStats(PRtcPeerConnection pRtcPeerConnection, PRtcRemoteInboundRtpStreamStats pRtcRemoteInboundRtpStreamStats)
+STATUS getRtpRemoteInboundStats(PRtcPeerConnection pRtcPeerConnection, PRtcRtpTransceiver pRtcRtpTransceiver,
+                                PRtcRemoteInboundRtpStreamStats pRtcRemoteInboundRtpStreamStats)
 {
     STATUS retStatus = STATUS_SUCCESS;
     PKvsPeerConnection pKvsPeerConnection = (PKvsPeerConnection) pRtcPeerConnection;
@@ -83,7 +84,8 @@ CleanUp:
     return retStatus;
 }
 
-STATUS getRtpOutboundStats(PRtcPeerConnection pRtcPeerConnection, PRtcOutboundRtpStreamStats pRtcOutboundRtpStreamStats)
+STATUS getRtpOutboundStats(PRtcPeerConnection pRtcPeerConnection, PRtcRtpTransceiver pRtcRtpTransceiver,
+                           PRtcOutboundRtpStreamStats pRtcOutboundRtpStreamStats)
 {
     STATUS retStatus = STATUS_SUCCESS;
     PKvsPeerConnection pKvsPeerConnection = (PKvsPeerConnection) pRtcPeerConnection;
@@ -104,7 +106,7 @@ CleanUp:
     return retStatus;
 }
 
-STATUS rtcPeerConnectionGetMetrics(PRtcPeerConnection pRtcPeerConnection, PRtcStats pRtcMetrics)
+STATUS rtcPeerConnectionGetMetrics(PRtcPeerConnection pRtcPeerConnection, PRtcRtpTransceiver pRtcRtpTransceiver, PRtcStats pRtcMetrics)
 {
     STATUS retStatus = STATUS_SUCCESS;
     CHK(pRtcPeerConnection != NULL && pRtcMetrics != NULL, STATUS_NULL_ARG);
@@ -122,10 +124,10 @@ STATUS rtcPeerConnectionGetMetrics(PRtcPeerConnection pRtcPeerConnection, PRtcSt
             getTransportStats(pRtcPeerConnection, &pRtcMetrics->rtcStatsObject.transportStats);
             break;
         case RTC_STATS_TYPE_REMOTE_INBOUND_RTP:
-            getRtpRemoteInboundStats(pRtcPeerConnection, &pRtcMetrics->rtcStatsObject.remoteInboundRtpStreamStats);
+            getRtpRemoteInboundStats(pRtcPeerConnection, pRtcRtpTransceiver, &pRtcMetrics->rtcStatsObject.remoteInboundRtpStreamStats);
             break;
         case RTC_STATS_TYPE_OUTBOUND_RTP:
-            getRtpOutboundStats(pRtcPeerConnection, &pRtcMetrics->rtcStatsObject.outboundRtpStreamStats);
+            getRtpOutboundStats(pRtcPeerConnection, pRtcRtpTransceiver, &pRtcMetrics->rtcStatsObject.outboundRtpStreamStats);
             break;
         case RTC_STATS_TYPE_ICE_SERVER:
             pRtcMetrics->timestamp = GETTIME();
