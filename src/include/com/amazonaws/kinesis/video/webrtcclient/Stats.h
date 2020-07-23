@@ -260,6 +260,7 @@ typedef struct {
  */
 typedef struct {
     // RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats as per https://www.w3.org/TR/webrtc-stats/#dom-rtcoutboundrtpstreamstats
+  
     RTCSentRtpStreamStats sent;
     BOOL voiceActivityFlag;          //!< Only valid for audio. Whether the last RTP packet sent contained voice activity or not based on the presence
                                      //!< of the V bit in the extension header

@@ -140,6 +140,11 @@ STATUS onRtcpPacket(PKvsPeerConnection pKvsPeerConnection, PBYTE pBuff, UINT32 b
 {
     STATUS retStatus = STATUS_SUCCESS;
     RtcpPacket rtcpPacket;
+    UINT8 fractionLost;
+    UINT32 senderSSRC, rtpTs, packetCnt, octetCnt, ssrc1, cumulativeLost, extHiSeqNumReceived, interarrivalJitter, lastSR, delaySinceLastSR;
+    UINT32 rttPropDelay, rttPropDelayMsec;
+    UINT64 ntpTime;
+    UINT64 currentTimeNTP = convertTimestampToNTP(GETTIME());
     UINT32 currentOffset = 0;
 
     CHK(pKvsPeerConnection != NULL && pBuff != NULL, STATUS_NULL_ARG);
